@@ -60,26 +60,16 @@
 - name: Ensure that snmpd is running
   service: name=snmpd state=started enabled=yes
 
-- name: Set Centreon repository for CentOS 6
-  template: src=centreon-centos6.repo dest=/etc/yum.repos.d/centreon.repo owner=root group=root mode=0644
+- name: Install Centreon repository for CentOS 6
+  become: yes
+  yum: name=http://yum.centreon.com/standard/3.4/el6/stable/noarch/RPMS/centreon-release-3.4-4.el6.noarch.rpm state=present disable_gpg_check=yes
   when:
     - ansible_distribution == "CentOS"
     - ansible_distribution_major_version == "6"
 
-- name: Set Centreon repository for CentOS 7
-  template: src=centreon-centos7.repo dest=/etc/yum.repos.d/centreon.repo owner=root group=root mode=0644
-  when:
-    - ansible_distribution == "CentOS"
-    - ansible_distribution_major_version == "7"
-
-- name: Import CES GPG key for CentOS 6
-  template: src=RPM-GPG-KEY-CES-Centos6 dest=/etc/pki/rpm-gpg/RPM-GPG-KEY-CES owner=root group=root mode=0644
-  when:
-    - ansible_distribution == "CentOS"
-    - ansible_distribution_major_version == "6"
-
-- name: Import CES GPG key for CentOS 7
-  template: src=RPM-GPG-KEY-CES-Centos7 dest=/etc/pki/rpm-gpg/RPM-GPG-KEY-CES owner=root group=root mode=0644
+- name: Install Centreon repository for CentOS 7
+  become: yes
+  yum: name=http://yum.centreon.com/standard/3.4/el7/stable/noarch/RPMS/centreon-release-3.4-4.el7.centos.noarch.rpm state=present disable_gpg_check=yes
   when:
     - ansible_distribution == "CentOS"
     - ansible_distribution_major_version == "7"
