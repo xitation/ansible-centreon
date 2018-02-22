@@ -7,3 +7,6 @@ poller2
 
 [dbserver]
 db
+
+[common]
+common

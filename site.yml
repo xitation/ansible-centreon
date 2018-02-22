@@ -3,7 +3,7 @@
 
 - name: Central
   hosts: central
-  remote_user: root
+  remote_user: centos
 
   roles:
     - common
@@ -11,7 +11,7 @@
 
 - name: Poller
   hosts: poller
-  remote_user: root
+  remote_user: centos
 
   roles:
     - common
@@ -19,8 +19,15 @@
 
 - name: Db
   hosts: dbserver
-  remote_user: root
+  remote_user: centos
 
   roles:
     - common
     - db
+
+- name: Common
+  hosts: common
+  remote_user: centos
+
+  roles:
+    - common
