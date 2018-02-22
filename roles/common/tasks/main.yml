@@ -2,62 +2,74 @@
 # This playbook contains common plays that will be run on all nodes.
 
 - name: Install Selinux Management
+  become: true
   yum: name={{ item }} state=installed
   with_items:
     - libselinux-python
     - libsemanage-python
 
 - name: set SELinux to permissive
+  become: true
   action: selinux policy=targeted state=permissive
 
 - name: ensure SELinux is turned off
+  become: true
   action: command /usr/sbin/setenforce 0
 
 - name: Disable iptables for CentOS 6
+  become: true
   action: service name=iptables state=stopped enabled=false
   when:
     - ansible_distribution == "CentOS"
     - ansible_distribution_major_version == "6"
 
 - name: Disable firewalld for CentOS 7
+  become: true
   action: service name=firewalld state=stopped enabled=false
   when:
     - ansible_distribution == "CentOS"
     - ansible_distribution_major_version == "7"
 
 - name: Install ntp for CentOS 6
+  become: true
   yum: name=ntp state=present
   when:
     - ansible_distribution == "CentOS"
     - ansible_distribution_major_version == "6"
 
 - name: Install chrony for CentOS 7
+  become: true
   yum: name=chrony state=present
   when:
     - ansible_distribution == "CentOS"
     - ansible_distribution_major_version == "7"
 
 - name: Ensure that ntpd is running for CentOS 6
+  become: true
   service: name=ntpd state=started enabled=yes
   when:
     - ansible_distribution == "CentOS"
     - ansible_distribution_major_version == "6"
 
 - name: Ensure that ntpd is running for CentOS 7
+  become: true
   service: name=chronyd state=started enabled=yes
   when:
     - ansible_distribution == "CentOS"
     - ansible_distribution_major_version == "7"
 
 - name: Install snmpd
+  become: true
   yum: name=net-snmp state=present
 
 - name: Set snmpd configuration
+  become: true
   template: src=snmpd.conf.j2 dest=/etc/snmp/snmpd.conf owner=root group=root
   notify:
     - restart snmpd
 
 - name: Ensure that snmpd is running
+  become: true
   service: name=snmpd state=started enabled=yes
 
 - name: Install Centreon repository for CentOS 6

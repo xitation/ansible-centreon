@@ -2,20 +2,25 @@
 # This playbook contains plays that will be run on Central nodes.
 
 - name: Install httpd
+  become: true
   yum: name=httpd state=present
 
 - name: Ensure that httpd is running
+  become: true
   service: name=httpd state=started enabled=yes
 
 - name: Install php
+  become: true
   yum: name=php state=present
 
 - name: Set php configuration
+  become: true
   template: src=php-timezone.ini.j2 dest=/etc/php.d/php-timezone.ini owner=root group=root
   notify:
     - restart httpd
 
 - name: Install centreon
+  become: true
   yum: name={{ item }} state=installed
   with_items:
     - centreon-base-config-centreon-engine

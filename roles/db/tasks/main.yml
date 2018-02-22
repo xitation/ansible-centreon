@@ -2,6 +2,7 @@
 # This playbook contains plays that will be run on DB nodes.
 
 - name: Install MariaDB package
+  become: true
   yum: name={{ item }} state=installed
   with_items:
    - MariaDB-server
@@ -9,4 +10,5 @@
    - MySQL-python
 
 - name: Start MariaDB Service
+  become: true
   service: name=mysql state=started enabled=yes
