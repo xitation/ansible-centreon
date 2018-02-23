@@ -1,4 +1,11 @@
 ---
 
 - name: restart httpd
+  ignore_errors: yes
   service: name=httpd state=restarted
+
+- name: restart centreon
+  ignore_errors: yes
+  service: name=centcore state=restart
+  service: name=centengine state=restart
+  service: name=centreontrapd state=restart
