@@ -29,14 +29,18 @@
     - restart httpd
     - restart centreon
 
-- name: Ensure that Centcore
+- name: Ensure that Centcore is running
   become: true
   service: name=centcore state=started enabled=yes
 
-- name: Ensure that Centengine
+- name: Ensure that Centengine is running
   become: true
   service: name=centengine state=started enabled=yes
 
-- name: Ensure that Centreontrapd
+- name: Ensure that Centreontrapd is running
   become: true
   service: name=centreontrapd state=started enabled=yes
+
+- name: Ensure that Centreon Broker is running
+  become: true
+  service: name=cbd state=started enabled=yes
