@@ -1,0 +1,7 @@
+---
+## SNMP Community
+snmp_community: change_this_to_something
+## Proxy env vars
+proxy_env:
+  http_proxy: http://proxy.aws.medibank.local:8080
+  https_proxy: http://proxy.aws.medibank.local:8080

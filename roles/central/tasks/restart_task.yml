@@ -1,0 +1,14 @@
+- name: restart centreon
+  ignore_errors: yes
+  become: true
+  service: name=centcore state=restart
+
+- name: restart centengine
+  ignore_errors: yes
+  become: true
+  service: name=centengine state=restart
+
+- name: restart centreontrapd
+  ignore_errors: yes
+  become: true
+  service: name=centreontrapd state=restart

@@ -76,6 +76,7 @@
 
 - name: Install Centreon repository for CentOS 6
   become: yes
+  environment: "{{proxy_env}}"
   yum: name=http://yum.centreon.com/standard/3.4/el6/stable/noarch/RPMS/centreon-release-3.4-4.el6.noarch.rpm state=present disable_gpg_check=yes
   when:
     - ansible_distribution == "CentOS"
@@ -83,6 +84,7 @@
 
 - name: Install Centreon repository for CentOS 7
   become: yes
+  environment: "{{proxy_env}}"
   yum: name=http://yum.centreon.com/standard/3.4/el7/stable/noarch/RPMS/centreon-release-3.4-4.el7.centos.noarch.rpm state=present disable_gpg_check=yes
   when:
     - ansible_distribution == "CentOS"

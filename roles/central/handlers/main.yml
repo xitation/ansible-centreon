@@ -5,9 +5,20 @@
   become: true
   service: name=httpd state=restarted
 
-- name: restart centreon
+- name: restart centcore
   ignore_errors: yes
   become: true
-  service: name=centcore state=restart
-  service: name=centengine state=restart
-  service: name=centreontrapd state=restart
+  listen: "restart centreon"
+  service: name=centcore state=restarted
+
+- name: restart centengine
+  ignore_errors: yes
+  become: true
+  listen: "restart centreon"
+  service: name=centengine state=restarted
+
+- name: restart centreontrapd
+  ignore_errors: yes
+  become: true
+  listen: "restart centreon"
+  service: name=centreontrapd state=restarted
